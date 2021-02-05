@@ -8,7 +8,7 @@ import com.threecubed.auber.World;
 
 //Headless.loadHeadless();
 
-class TestFR_InfiltratorCount {
+class TestFR_Infiltrator {
 	  /**
 	   * Test whether there are 8 infiltrators in the game
 	   *

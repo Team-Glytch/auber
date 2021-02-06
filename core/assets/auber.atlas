@@ -1,89 +1,129 @@
-
 auber.png
-size: 2048,2048
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-alienA
+stars
   rotate: false
-  xy: 866, 202
-  size: 14, 14
-  orig: 14, 14
+  xy: 1, 964
+  size: 1920, 1080
+  orig: 1920, 1080
   offset: 0, 0
   index: -1
-alienB
+instructions
   rotate: false
-  xy: 1168, 304
-  size: 14, 14
-  orig: 14, 14
-  offset: 0, 0
-  index: -1
-alienC
-  rotate: false
-  xy: 1924, 2013
-  size: 14, 14
-  orig: 14, 14
-  offset: 0, 0
-  index: -1
-arrow
-  rotate: false
-  xy: 1868, 947
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-arrow2
-  rotate: false
-  xy: 1924, 2029
-  size: 16, 16
-  orig: 16, 16
+  xy: 1, 103
+  size: 862, 859
+  orig: 862, 859
   offset: 0, 0
   index: -1
 auber_logo
   rotate: false
-  xy: 866, 320
+  xy: 865, 319
   size: 1000, 643
   orig: 1000, 643
   offset: 0, 0
   index: -1
 demoButton
   rotate: false
-  xy: 866, 218
+  xy: 1, 1
   size: 300, 100
   orig: 300, 100
   offset: 0, 0
   index: -1
-infiltrator
+easyButton
   rotate: false
-  xy: 304, 88
-  size: 14, 14
-  orig: 14, 14
+  xy: 865, 217
+  size: 300, 100
+  orig: 300, 100
   offset: 0, 0
   index: -1
-instructions
+hardButton
   rotate: false
-  xy: 2, 104
-  size: 862, 859
-  orig: 862, 859
+  xy: 303, 1
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+loadButton
+  rotate: false
+  xy: 865, 115
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+mediumButton
+  rotate: false
+  xy: 1167, 217
+  size: 300, 100
+  orig: 300, 100
   offset: 0, 0
   index: -1
 playButton
   rotate: false
-  xy: 2, 2
+  xy: 1167, 115
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+arrow
+  rotate: false
+  xy: 1923, 2028
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+arrow2
+  rotate: false
+  xy: 1867, 946
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+alienA
+  rotate: false
+  xy: 605, 87
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+alienB
+  rotate: false
+  xy: 1469, 303
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+alienC
+  rotate: false
+  xy: 1923, 2012
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+infiltrator
+  rotate: false
+  xy: 1941, 2030
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+loadButton
+  rotate: false
+  xy: 350, 0
   size: 300, 100
   orig: 300, 100
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 1942, 2031
+  xy: 1867, 930
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 projectile
   rotate: false
-  xy: 1868, 937
+  xy: 865, 105
   size: 8, 8
   orig: 8, 8
   offset: 0, 0

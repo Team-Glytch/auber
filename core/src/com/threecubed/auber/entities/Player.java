@@ -18,6 +18,8 @@ import com.badlogic.gdx.utils.Timer.Task;
 import com.threecubed.auber.Utils;
 import com.threecubed.auber.World;
 import com.threecubed.auber.entities.playerpowerups.PlayerPowerUp;
+import com.threecubed.auber.files.FileHandler;
+import com.threecubed.auber.files.SaveCategory;
 import com.threecubed.auber.pathfinding.NavigationMesh;
 
 /**
@@ -25,7 +27,8 @@ import com.threecubed.auber.pathfinding.NavigationMesh;
  * interaction with other entities and tiles in the game world.
  *
  * @author Daniel O'Brien
- * @version 1.0
+ * @author Joshua Cottrell
+ * @version 2.0
  * @since 1.0
  */
 public class Player extends GameEntity {
@@ -50,6 +53,7 @@ public class Player extends GameEntity {
 
 	public Player(float x, float y, World world) {
 		super(x, y, world.atlas.createSprite("player"));
+		FileHandler.addSaveable(this);
 	}
 
 	/**
@@ -112,7 +116,7 @@ public class Player extends GameEntity {
 					}
 				}
 			}
-
+			
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && teleporterRayCoordinates.isZero()) {
 				world.auberTeleporterCharge = Math.min(world.auberTeleporterCharge + World.AUBER_CHARGE_RATE, 1f);
 			} else {
@@ -217,6 +221,7 @@ public class Player extends GameEntity {
 		if (isVisible) {
 			super.render(batch, camera);
 		}
+
 	}
 
 	/**
@@ -253,7 +258,6 @@ public class Player extends GameEntity {
 								handleStunShot((Infiltrator) entity);
 								isStunShot = false;
 							}
-
 						}
 						break;
 					}
@@ -288,6 +292,37 @@ public class Player extends GameEntity {
 				infiltrator.maxSpeed = 2f;
 			}
 		}, 5000f);
+	}
+	
+	@Override
+	public String getSaveData() {
+		int confused = this.confused ? 1 : 0;
+		int slowed = this.slowed ? 1 : 0;
+		int blinded = this.blinded ? 1 : 0;
+		return super.getSaveData() + "," + health + "," + confused + "," + slowed + "," + blinded;
+	}
+
+	@Override
+	public void loadSaveData(String data) {
+		super.loadSaveData(data);
+
+		String[] atomicData = data.split(",");
+
+		float health = Float.parseFloat(atomicData[3]);
+		boolean confused = atomicData[4].equalsIgnoreCase("1");
+		boolean slowed = atomicData[5].equalsIgnoreCase("1");
+		boolean blinded = atomicData[6].equalsIgnoreCase("1");
+
+		this.health = health;
+		this.confused = confused;
+		this.slowed = slowed;
+		this.blinded = blinded;
+		
+	}
+
+	@Override
+	public SaveCategory getCategory() {
+		return SaveCategory.PLAYER;
 	}
 
 }

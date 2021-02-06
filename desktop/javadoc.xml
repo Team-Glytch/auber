@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="/home/indraj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-ai/1.8.0/ec30677d8ab1a8b8aa4b853c5f4e4b1361f50bf5/gdx-ai-1.8.0.jar:/home/indraj/Documents/GitHub/auber/core/bin/main:/home/indraj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.12/e2d132e76ef94b27d309ab0ea9fe06a8e2d0a80/gdx-1.9.12.jar:/auber-core/bin/default" destdir="/home/indraj/Documents/GitHub/auber/docs/javadocs/" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.threecubed.auber.ui,com.threecubed.auber.entities,com.threecubed.auber.files,com.threecubed.auber.pathfinding,com.threecubed.auber,com.threecubed.auber.screens" source="1.7" sourcepath="/home/indraj/Documents/GitHub/auber/core/src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

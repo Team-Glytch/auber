@@ -22,6 +22,7 @@ public class Button {
   AuberGame game;
   Vector2 position;
   Runnable onClick;
+  float scale;
 
   /**
    * Instantiate a button at a given position with a given scale and texture.
@@ -36,7 +37,7 @@ public class Button {
   public Button(Vector2 position, float scale, Sprite sprite, AuberGame game, Runnable onClick) {
     this.sprite = sprite;
     this.onClick = onClick;
-
+    this.scale = scale;
     sprite.setScale(scale);
     sprite.setPosition(position.x - (sprite.getWidth() / 2), position.y - (sprite.getHeight() / 2));
 
@@ -55,11 +56,17 @@ public class Button {
     if (sprite.getBoundingRectangle().contains(Gdx.input.getX(),
           Gdx.graphics.getHeight() - Gdx.input.getY())) {
       sprite.setScale(1.05f);
-      if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+      if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
         onClick.run();
       }
     } else {
       sprite.setScale(1.0f);
     }
   }
+  
+  public void setSprite(Sprite sprite) {
+	    this.sprite = sprite;
+	    sprite.setScale(scale);
+	    sprite.setPosition(position.x , position.y);
+	  }
 }

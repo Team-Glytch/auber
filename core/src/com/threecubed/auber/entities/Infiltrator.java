@@ -164,4 +164,26 @@ public class Infiltrator extends Npc {
 			world.queueEntityAdd(projectile);
 		}
 	}
+  
+    @Override
+	public String getSaveData() {
+		int exposed = this.exposed ? 1 : 0;
+		return super.getSaveData() + "," + exposed;
+	}
+
+	@Override
+	public void loadSaveData(String data) {
+		super.loadSaveData(data);
+
+		String[] atomicData = data.split(",");
+
+		boolean exposed = atomicData[3].equalsIgnoreCase("1");
+
+		this.exposed = exposed;
+	}
+
+	@Override
+	public SaveCategory getCategory() {
+		return SaveCategory.INFILTRATOR;
+	}
 }

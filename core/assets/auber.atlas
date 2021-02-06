@@ -128,4 +128,45 @@ projectile
   orig: 8, 8
   offset: 0, 0
   index: -1
-
+stars
+  rotate: false
+  xy: 2, 965
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: -1
+ExposePU
+  rotate: false
+  xy: 450, 0
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+InvisibilityPU
+  rotate: false
+  xy: 462, 0
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+ShieldPU
+  rotate: false
+  xy: 474, 0
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+SpeedPU
+  rotate: false
+  xy: 486, 0
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+StunShotPU
+  rotate: false
+  xy: 498, 0
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1

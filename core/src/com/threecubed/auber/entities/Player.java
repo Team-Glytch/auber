@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.threecubed.auber.Utils;
 import com.threecubed.auber.World;
+import com.threecubed.auber.entities.playerpowerups.PlayerPowerUp;
 import com.threecubed.auber.files.FileHandler;
 import com.threecubed.auber.files.SaveCategory;
 import com.threecubed.auber.pathfinding.NavigationMesh;
@@ -40,6 +41,13 @@ public class Player extends GameEntity {
 	public boolean confused = false;
 	public boolean slowed = false;
 	public boolean blinded = false;
+
+	public boolean isStunShot = false;
+
+	/**
+	 * True if the player is visible to the user and enemies, False otherwise
+	 */
+	public boolean isVisible = true;
 
 	private ShapeRenderer rayRenderer = new ShapeRenderer();
 
@@ -97,6 +105,18 @@ public class Player extends GameEntity {
 				velocity.x = Math.min(velocity.x + speed - speedModifier, maxSpeed);
 			}
 
+			for (GameEntity entity : world.getEntities()) {
+				if (entity instanceof PlayerPowerUp) {
+					PlayerPowerUp powerup = (PlayerPowerUp) entity;
+
+					if (powerup.isCollected() && powerup.canActivate()) {
+						if (Gdx.input.isKeyJustPressed(powerup.getKeyCode())) {
+							powerup.activate();
+						}
+					}
+				}
+			}
+			
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && teleporterRayCoordinates.isZero()) {
 				world.auberTeleporterCharge = Math.min(world.auberTeleporterCharge + World.AUBER_CHARGE_RATE, 1f);
 			} else {
@@ -197,7 +217,11 @@ public class Player extends GameEntity {
 
 			batch.begin();
 		}
-		super.render(batch, camera);
+
+		if (isVisible) {
+			super.render(batch, camera);
+		}
+
 	}
 
 	/**
@@ -229,6 +253,11 @@ public class Player extends GameEntity {
 						if (entity instanceof Npc) {
 							Npc npc = (Npc) entity;
 							npc.handleTeleporterShot(world);
+
+							if (entity instanceof Infiltrator && isStunShot) {
+								handleStunShot((Infiltrator) entity);
+								isStunShot = false;
+							}
 						}
 						break;
 					}
@@ -247,6 +276,24 @@ public class Player extends GameEntity {
 		return output;
 	}
 
+	/**
+	 * Handles when the player stun shoots the infiltrator
+	 * 
+	 * @param infiltrator
+	 */
+	private void handleStunShot(final Infiltrator infiltrator) {
+		infiltrator.speed = 0f;
+		infiltrator.maxSpeed = 0f;
+
+		new Timer().scheduleTask(new Timer.Task() {
+			@Override
+			public void run() {
+				infiltrator.speed = 0.4f;
+				infiltrator.maxSpeed = 2f;
+			}
+		}, 5000f);
+	}
+	
 	@Override
 	public String getSaveData() {
 		int confused = this.confused ? 1 : 0;

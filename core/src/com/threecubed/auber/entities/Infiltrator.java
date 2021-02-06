@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.threecubed.auber.Utils;
 import com.threecubed.auber.World;
+import com.threecubed.auber.files.SaveCategory;
 
 /**
  * The infiltrator is the enemy of the game, it will navigate from system to
@@ -164,8 +165,8 @@ public class Infiltrator extends Npc {
 			world.queueEntityAdd(projectile);
 		}
 	}
-  
-    @Override
+
+	@Override
 	public String getSaveData() {
 		int exposed = this.exposed ? 1 : 0;
 		return super.getSaveData() + "," + exposed;

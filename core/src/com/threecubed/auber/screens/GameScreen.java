@@ -55,11 +55,11 @@ public class GameScreen extends ScreenAdapter {
 	 * @param game     The game object
 	 * @param demoMode Whether the game should run in demo mode
 	 */
-	public GameScreen(AuberGame game, boolean demoMode) {
+	public GameScreen(AuberGame game, boolean demoMode, String difficulty) {
 		this.game = game;
 		ui = new GameUi(game);
 
-		world = new World(game, demoMode);
+		world = new World(game, demoMode, difficulty);
 
 		for (int i = 0; i < World.MAX_INFILTRATORS_IN_GAME; i++) {
 			world.queueEntityAdd(new Infiltrator(world));

@@ -31,7 +31,7 @@ import com.threecubed.auber.ui.Button;
 public class MenuScreen extends ScreenAdapter {
 	World world;
 	AuberGame game;
-	
+
 	Button playButton;
 	Button loadButton;
 	Button demoButton;
@@ -42,7 +42,7 @@ public class MenuScreen extends ScreenAdapter {
 	Sprite title;
 	SpriteBatch spriteBatch;
 	String difficulty;
-	
+
 	/**
 	 * Instantiate the screen with the {@link AuberGame} object. Set the title and
 	 * button up to be rendered.
@@ -61,7 +61,7 @@ public class MenuScreen extends ScreenAdapter {
 		Runnable onPlayClick = new Runnable() {
 			@Override
 			public void run() {
-				game.setScreen(new GameScreen(game, false,difficulty));
+				game.setScreen(new GameScreen(game, false, difficulty));
 			}
 		};
 
@@ -86,36 +86,35 @@ public class MenuScreen extends ScreenAdapter {
 		Runnable onDemoClick = new Runnable() {
 			@Override
 			public void run() {
-				game.setScreen(new GameScreen(game, true,difficulty));
+				game.setScreen(new GameScreen(game, true, difficulty));
 			}
 		};
 
 		demoButton = new Button(new Vector2(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 2 - 150f), 1f,
 				game.atlas.createSprite("demoButton"), game, onDemoClick);
-		
+
 		Runnable onDifficultyClick = new Runnable() {
 			@Override
 			public void run() {
-				switch(difficulty) {
-					case "easyButton":
-						difficulty = "mediumButton";
-						break;
-					case "mediumButton":
-						difficulty = "hardButton";
-						break;
-					case "hardButton":
-						difficulty = "easyButton";
-						break;
+				switch (difficulty) {
+				case "easyButton":
+					difficulty = "mediumButton";
+					break;
+				case "mediumButton":
+					difficulty = "hardButton";
+					break;
+				case "hardButton":
+					difficulty = "easyButton";
+					break;
 				}
 				difficultyButton.setSprite(game.atlas.createSprite(difficulty));
 			}
-			
+
 		};
 		System.out.println(difficulty);
 		difficultyButton = new Button(new Vector2(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 2 - 450f), 1f,
 				game.atlas.createSprite(difficulty), game, onDifficultyClick);
 	}
-	
 
 	@Override
 	public void render(float deltaTime) {

@@ -1,5 +1,6 @@
 package com.threecubed.auber.entities;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -30,14 +31,28 @@ public class Projectile extends GameEntity {
    * @param velocity A {@link Vector2} representing the velocity of the projectile
    * @param originEntity The entity that the projectile originated from
    * @param action The effect the projectile should have on the player
-   * @param world The game world
+   * @param sprite The sprite of the projectile
    * */
   public Projectile(float x, float y, Vector2 velocity, GameEntity originEntity,
-      CollisionActions action, World world) {
-    super(x, y, world.atlas.createSprite("projectile"));
+      CollisionActions action, Sprite sprite) {
+    super(x, y, sprite);
     collisionAction = action;
     this.originEntity = originEntity;
     this.velocity = velocity;
+  }
+
+  /**
+   * Initialise a projectile.
+   *
+   * @param x The x coordinate to initialise at
+   * @param y The y coordinate to initialise at
+   * @param velocity A {@link Vector2} representing the velocity of the projectile
+   * @param originEntity The entity that the projectile originated from
+   * @param action The effect the projectile should have on the player
+   * @param world the game world
+   * */
+  public Projectile(float x, float y, Vector2 velocity, GameEntity originEntity, CollisionActions action, World world) {
+	  this(x, y, velocity, originEntity, action, world.atlas.createSprite("projectile"));
   }
 
   /**
@@ -53,7 +68,7 @@ public class Projectile extends GameEntity {
             sprite.getBoundingRectangle())
           && entity != originEntity && entity != this) {
         if (entity instanceof Player) {
-          handleCollisionWithPlayer(world);
+          handleCollisionWithPlayer(world.player);
         } 
         world.queueEntityRemove(this);
         return;
@@ -70,49 +85,49 @@ public class Projectile extends GameEntity {
     }
   }
 
-  private void handleCollisionWithPlayer(World world) {
+  private void handleCollisionWithPlayer(Player player) {
     switch (collisionAction) {
       case CONFUSE:
-        confusePlayer(world);
+        confusePlayer(player);
         break;
       case SLOW:
-        slowPlayer(world);
+        slowPlayer(player);
         break;
       case BLIND:
-        blindPlayer(world);
+        blindPlayer(player);
         break;
       default:
         break;
     }
-    world.player.health -= World.INFILTRATOR_PROJECTILE_DAMAGE;
+    player.health -= World.INFILTRATOR_PROJECTILE_DAMAGE;
   }
 
-  private void confusePlayer(final World world) {
-    world.player.confused = true;
-    world.player.playerTimer.scheduleTask(new Task() {
+  private void confusePlayer(final Player player) {
+    player.confused = true;
+    player.playerTimer.scheduleTask(new Task() {
       @Override
       public void run() {
-        world.player.confused = false;
+        player.confused = false;
       }
     }, World.AUBER_DEBUFF_TIME);
   }
 
-  private void slowPlayer(final World world) {
-    world.player.slowed = true;
-    world.player.playerTimer.scheduleTask(new Task() {
+  private void slowPlayer(final Player player) {
+    player.slowed = true;
+    player.playerTimer.scheduleTask(new Task() {
       @Override
       public void run() {
-        world.player.slowed = false;
+        player.slowed = false;
       }
     }, World.AUBER_DEBUFF_TIME);
   }
 
-  private void blindPlayer(final World world) {
-    world.player.blinded = true;
-    world.player.playerTimer.scheduleTask(new Task() {
+  private void blindPlayer(final Player player) {
+    player.blinded = true;
+    player.playerTimer.scheduleTask(new Task() {
       @Override
       public void run() {
-        world.player.blinded = false;
+        player.blinded = false;
       }
     }, World.AUBER_DEBUFF_TIME - 3f);
   }

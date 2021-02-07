@@ -34,7 +34,6 @@ import com.threecubed.auber.pathfinding.NavigationMesh;
  * @since 1.0
  */
 public class Player extends GameEntity {
-	public Timer playerTimer = new Timer();
 	private Vector2 teleporterRayCoordinates = new Vector2();
 
 	/** Health of Auber - varies between 1 and 0. */
@@ -67,11 +66,12 @@ public class Player extends GameEntity {
 	}
 
 	public void scheduleTask(final Runnable task, long ms) {
-		playerTimer.schedule(new TimerTask() {
+		final Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				task.run();
-				playerTimer.cancel();
+				timer.cancel();
 			}
 		}, ms);
 	}

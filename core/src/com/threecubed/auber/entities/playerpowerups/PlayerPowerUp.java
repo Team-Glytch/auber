@@ -29,7 +29,7 @@ public abstract class PlayerPowerUp extends GameEntity {
 	 * The millisecond duration for the actions effects, -1 if there is no duration
 	 */
 	protected int durationMs;
-	
+
 	/**
 	 * The code of the keyboard letter used to initiate the power up
 	 */
@@ -44,12 +44,12 @@ public abstract class PlayerPowerUp extends GameEntity {
 	 * True if the power up is currently active, False otherwise
 	 */
 	private boolean isActive = false;
-	
+
 	/**
 	 * The name of the power up
 	 */
 	public String name;
-	
+
 	/**
 	 * The power up's constructer
 	 * 
@@ -76,7 +76,7 @@ public abstract class PlayerPowerUp extends GameEntity {
 			sprite.draw(batch);
 		}
 	}
-	
+
 	@Override
 	public void update(World world) {
 		Circle collectArea = new Circle(position, 10f);
@@ -84,9 +84,9 @@ public abstract class PlayerPowerUp extends GameEntity {
 		if (!isCollected() && collectArea.contains(world.player.position)) {
 			collect(world.player);
 		}
-		
+
 	}
-	
+
 	public int getKeyCode() {
 		return keyCode;
 	}
@@ -97,14 +97,14 @@ public abstract class PlayerPowerUp extends GameEntity {
 	public boolean isCollected() {
 		return player != null;
 	}
-	
+
 	/**
 	 * @return {@link #isActive}
 	 */
 	public boolean isActive() {
 		return isActive;
 	}
-	
+
 	/**
 	 * Fired when the player collects the power up
 	 * 
@@ -120,10 +120,10 @@ public abstract class PlayerPowerUp extends GameEntity {
 	public void activate() {
 		doAction();
 		nextActivatableTimeMs = System.currentTimeMillis() + cooldownMs;
-		
+
 		if (durationMs != -1) {
 			isActive = true;
-			new Timer().schedule(new TimerTask() {
+			player.scheduleTask(new Runnable() {
 				@Override
 				public void run() {
 					reverseAction();
@@ -135,7 +135,8 @@ public abstract class PlayerPowerUp extends GameEntity {
 
 	/**
 	 * @param keyCode
-	 * @return True if the key code supplied corresponds with the power up, False otherwise
+	 * @return True if the key code supplied corresponds with the power up, False
+	 *         otherwise
 	 */
 	public boolean isKey(int keyCode) {
 		return this.keyCode == keyCode;
@@ -152,7 +153,7 @@ public abstract class PlayerPowerUp extends GameEntity {
 	 * Performs the action of the power up
 	 */
 	protected abstract void doAction();
-	
+
 	/**
 	 * Retracts the actions performed by the power up
 	 */

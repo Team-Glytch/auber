@@ -50,13 +50,18 @@ public abstract class GameEntity implements Saveable {
 	 */
 	public GameEntity(float x, float y, Sprite sprite) {
 		this.sprite = sprite;
-		sprite.setOriginCenter();
+
+		if (sprite != null) {
+			sprite.setOriginCenter();
+		}
 
 		position = new Vector2(x, y);
 		velocity = new Vector2(0, 0);
 
-		collisionOffsets = new float[][] { { 2f, 2f }, { sprite.getWidth() - 2f, 2f }, { 2f, sprite.getHeight() - 2f },
-				{ sprite.getWidth() - 2f, sprite.getHeight() - 2f } };
+		if (sprite != null) {
+			collisionOffsets = new float[][] { { 2f, 2f }, { sprite.getWidth() - 2f, 2f },
+					{ 2f, sprite.getHeight() - 2f }, { sprite.getWidth() - 2f, sprite.getHeight() - 2f } };
+		}
 	}
 
 	/**
@@ -204,7 +209,7 @@ public abstract class GameEntity implements Saveable {
 		float x = Float.parseFloat(atomicData[0]);
 		float y = Float.parseFloat(atomicData[1]);
 		float rotation = Float.parseFloat(atomicData[2]);
-		
+
 		this.position = new Vector2(x, y);
 		this.rotation = rotation;
 	}

@@ -82,9 +82,9 @@ public class World implements Saveable {
 	/** The rate at which the teleporter ray charges. */
 	public static final float AUBER_CHARGE_RATE = 0.05f;
 	/** The time the ray should visibly render for. */
-	public static final float AUBER_RAY_TIME = 0.25f;
+	public static final float AUBER_RAY_TIME = 250f;
 	/** The time a debuff should last for (with the exception of blindness). */
-	public static final float AUBER_DEBUFF_TIME = 5f;
+	public static final float AUBER_DEBUFF_TIME = 5000f;
 	/** The rate at which auber should heal. */
 	public static final float AUBER_HEAL_RATE = 0.005f;
 	public static final Color rayColorA = new Color(0.106f, 0.71f, 0.714f, 1f);

@@ -1,10 +1,14 @@
 package com.threecubed.auber.entities;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapObjects;
@@ -13,8 +17,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 import com.threecubed.auber.Utils;
 import com.threecubed.auber.World;
 import com.threecubed.auber.entities.playerpowerups.PlayerPowerUp;
@@ -49,11 +51,29 @@ public class Player extends GameEntity {
 	 */
 	public boolean isVisible = true;
 
-	private ShapeRenderer rayRenderer = new ShapeRenderer();
+	private ShapeRenderer rayRenderer;
+
+	public Player(float x, float y, Sprite sprite) {
+		super(x, y, sprite);
+		FileHandler.addSaveable(this);
+
+		if (sprite != null) {
+			rayRenderer = new ShapeRenderer();
+		}
+	}
 
 	public Player(float x, float y, World world) {
-		super(x, y, world.atlas.createSprite("player"));
-		FileHandler.addSaveable(this);
+		this(x, y, world.atlas.createSprite("player"));
+	}
+
+	public void scheduleTask(final Runnable task, long ms) {
+		playerTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				task.run();
+				playerTimer.cancel();
+			}
+		}, ms);
 	}
 
 	/**
@@ -116,7 +136,7 @@ public class Player extends GameEntity {
 					}
 				}
 			}
-			
+
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && teleporterRayCoordinates.isZero()) {
 				world.auberTeleporterCharge = Math.min(world.auberTeleporterCharge + World.AUBER_CHARGE_RATE, 1f);
 			} else {
@@ -143,12 +163,12 @@ public class Player extends GameEntity {
 						}
 					}
 
-					playerTimer.scheduleTask(new Task() {
+					scheduleTask(new Runnable() {
 						@Override
 						public void run() {
 							teleporterRayCoordinates.setZero();
 						}
-					}, World.AUBER_RAY_TIME);
+					}, (long) World.AUBER_RAY_TIME);
 				} else {
 					world.auberTeleporterCharge = Math.max(world.auberTeleporterCharge - World.AUBER_CHARGE_RATE, 0f);
 				}
@@ -285,15 +305,15 @@ public class Player extends GameEntity {
 		infiltrator.speed = 0f;
 		infiltrator.maxSpeed = 0f;
 
-		new Timer().scheduleTask(new Timer.Task() {
+		scheduleTask(new Runnable() {
 			@Override
 			public void run() {
 				infiltrator.speed = 0.4f;
 				infiltrator.maxSpeed = 2f;
 			}
-		}, 5000f);
+		}, 5000);
 	}
-	
+
 	@Override
 	public String getSaveData() {
 		int confused = this.confused ? 1 : 0;
@@ -317,7 +337,7 @@ public class Player extends GameEntity {
 		this.confused = confused;
 		this.slowed = slowed;
 		this.blinded = blinded;
-		
+
 	}
 
 	@Override

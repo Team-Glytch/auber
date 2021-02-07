@@ -1,5 +1,7 @@
 package com.threecubed.auber.entities;
 
+import java.util.TimerTask;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Intersector;
@@ -85,7 +87,7 @@ public class Projectile extends GameEntity {
     }
   }
 
-  private void handleCollisionWithPlayer(Player player) {
+  public void handleCollisionWithPlayer(Player player) {
     switch (collisionAction) {
       case CONFUSE:
         confusePlayer(player);
@@ -104,31 +106,31 @@ public class Projectile extends GameEntity {
 
   private void confusePlayer(final Player player) {
     player.confused = true;
-    player.playerTimer.scheduleTask(new Task() {
+    player.scheduleTask(new Runnable() {
       @Override
       public void run() {
         player.confused = false;
       }
-    }, World.AUBER_DEBUFF_TIME);
+    }, (long) World.AUBER_DEBUFF_TIME);
   }
 
   private void slowPlayer(final Player player) {
     player.slowed = true;
-    player.playerTimer.scheduleTask(new Task() {
+    player.scheduleTask(new Runnable() {
       @Override
       public void run() {
         player.slowed = false;
       }
-    }, World.AUBER_DEBUFF_TIME);
+    }, (long) World.AUBER_DEBUFF_TIME);
   }
 
   private void blindPlayer(final Player player) {
     player.blinded = true;
-    player.playerTimer.scheduleTask(new Task() {
+    player.scheduleTask(new Runnable() {
       @Override
       public void run() {
         player.blinded = false;
       }
-    }, World.AUBER_DEBUFF_TIME - 3f);
+    }, (long) (World.AUBER_DEBUFF_TIME - 3f));
   }
 }

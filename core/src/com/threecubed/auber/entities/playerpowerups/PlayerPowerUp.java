@@ -1,8 +1,6 @@
 package com.threecubed.auber.entities.playerpowerups;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -48,7 +46,7 @@ public abstract class PlayerPowerUp extends GameEntity {
 	/**
 	 * The name of the power up
 	 */
-	public String name;
+	public String text;
 
 	/**
 	 * The power up's constructer
@@ -61,7 +59,7 @@ public abstract class PlayerPowerUp extends GameEntity {
 	 */
 	public PlayerPowerUp(String name, Sprite sprite, Vector2 position, int cooldownMs, int durationMs, int keyCode) {
 		super(position.x, position.y, sprite);
-		this.name = name;
+		this.text = name + " " + Keys.toString(keyCode);
 		this.sprite = sprite;
 		this.position = position;
 		this.cooldownMs = cooldownMs;

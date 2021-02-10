@@ -147,7 +147,7 @@ public class World implements Saveable {
 	}
 
 	/** The amount of time it takes for an infiltrator to sabotage a system. */
-	public static final float SYSTEM_BREAK_TIME = 5f;
+	public static final float SYSTEM_BREAK_TIME = 10f;
 	/** The chance an infiltrator will sabotage after pathfinding to a system. */
 	public static final float SYSTEM_SABOTAGE_CHANCE = 0.6f;
 	/** The distance the infiltrator can see. Default: 5 tiles */

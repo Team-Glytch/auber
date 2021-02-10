@@ -17,8 +17,9 @@ buildscript {
 
 allprojects {
     apply plugin: "eclipse"
-	
-    version = '1.0'
+
+    version = '2.0'
+
     ext {
         appName = "auber"
         gdxVersion = '1.9.12'

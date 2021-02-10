@@ -11,7 +11,7 @@ on:
 
 jobs:
   testing:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -25,4 +25,4 @@ jobs:
       run: chmod +x gradlew
       
     - name: Test with Gradle
-      run: ./gradlew test
+      run: ./gradlew desktop:run

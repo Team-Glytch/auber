@@ -13,11 +13,11 @@ import javax.swing.JFileChooser;
 
 import com.threecubed.auber.AuberGame;
 import com.threecubed.auber.screens.GameScreen;
+import com.threecubed.auber.screens.MenuScreen;
 
 /**
- * The FileHandler class contains attributes and methods
- * required for storing, retrieving and categorising game
- * save data.
+ * The FileHandler class contains attributes and methods required for storing,
+ * retrieving and categorising game save data.
  * 
  * @author Joshua Cottrell
  * @version 1.0
@@ -27,17 +27,17 @@ import com.threecubed.auber.screens.GameScreen;
 public class FileHandler {
 
 	private static final List<Saveable> saveables = new ArrayList<Saveable>();
-	
+
 	// directory in which save files are located
 	private static final String path = "saves/";
-	
+
 	/**
 	 * add elements to the saveables list
 	 */
 	public static void addSaveable(Saveable saveable) {
 		saveables.add(saveable);
 	}
-    
+
 	/**
 	 * Writes game save data to file.
 	 * 
@@ -45,7 +45,7 @@ public class FileHandler {
 	 * @throws IOException Throws if I/O error occurred while writing data
 	 */
 	public static void save(String savename) throws IOException {
-		
+
 		// create save directory if it doesn't already exist
 		if (!new File(path).exists()) {
 			new File(path).mkdir();
@@ -64,9 +64,9 @@ public class FileHandler {
 		writer.close();
 
 	}
-	
+
 	/**
-	 * Loads game save data using JFileChooser. 
+	 * Loads game save data using JFileChooser.
 	 * 
 	 * @param game Game object
 	 * @throws IOException Throws if I/O error occurred while reading file
@@ -76,10 +76,14 @@ public class FileHandler {
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "/" + path));
 		fileChooser.showOpenDialog(null);
 
-		game.setScreen(new GameScreen(game, false, "easyButton"));
-		FileHandler.load(fileChooser.getSelectedFile());
+		try {
+			game.setScreen(new GameScreen(game, false, "easyButton"));
+			FileHandler.load(fileChooser.getSelectedFile());
+		} catch (IOException | NullPointerException e) {
+			game.setScreen(new MenuScreen(game));
+		}
 	}
-	
+
 	/**
 	 * Load game save data into saveables.
 	 * 

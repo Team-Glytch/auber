@@ -196,7 +196,7 @@ public class GameUi {
 					uiFont.setColor(Color.RED);
 				}
 
-				uiFont.draw(screenBatch, powerUp.name, 10, 600 + ctr * 20);
+				uiFont.draw(screenBatch, powerUp.text, 10, 600 + ctr * 20);
 				ctr += 1;
 			}
 		}

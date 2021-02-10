@@ -111,7 +111,6 @@ public class MenuScreen extends ScreenAdapter {
 			}
 
 		};
-		System.out.println(difficulty);
 		difficultyButton = new Button(new Vector2(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 2 - 450f), 1f,
 				game.atlas.createSprite(difficulty), game, onDifficultyClick);
 	}
